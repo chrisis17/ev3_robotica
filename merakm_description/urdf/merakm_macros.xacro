@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<robot name="merakm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="m_link_cylinder" params="name origin_xyz origin_rpy color length radius mass ixx ixy ixz iyy iyz izz">
+    <link name="${name}">
+      <inertial>
+        <mass value="${mass}" />
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}" />
+      </inertial>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+      </collision>
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}" />
+        <geometry>
+          <cylinder length="${length}" radius="${radius}"/>
+        </geometry>
+        <material name="${color}"/>
+      </visual>
+    </link>
+  </xacro:macro>
+
+</robot>

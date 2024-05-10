@@ -1,0 +1,21 @@
+<launch>
+
+  <!-- Gazebo empty world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find merakm_gazebo)/worlds/turtlebot3_world.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <include file="$(find merakm_description)/launch/merakm_spawn.launch" >
+    <arg name="x_pos" value="-2.0"/>
+    <arg name="y_pos" value="-0.5"/>
+    <arg name="z_pos" value="0.0"/>
+  </include>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+</launch>

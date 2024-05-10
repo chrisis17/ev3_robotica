@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- Wheels property -->
+    <xacro:property name="wheel_dia" value="0.078" />
+    <xacro:property name="wheel_rad" value="${wheel_dia/2}" />
+    <xacro:property name="wheel_len" value="0.010" />
+    <xacro:property name="wheel_weight" value="0.1" />
+    <xacro:property name="wheel_dist" value="0.4" />
+    
+    <!-- Base property -->
+    <xacro:property name="base_dia" value="0.30" />
+    <xacro:property name="base_rad" value="${base_dia/2}" />
+    <xacro:property name="base_len" value="0.005" />
+    <xacro:property name="base_weight" value="0.4" />
+
+    <!-- Caster property -->
+    <xacro:property name="caster_dia" value="0.01" />
+    <xacro:property name="caster_rad" value="${caster_dia/2}" />
+    <xacro:property name="caster_weight" value="0.05" />
+
+</robot>

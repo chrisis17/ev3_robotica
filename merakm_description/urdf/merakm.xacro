@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<robot name="merakm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find merakm_description)/urdf/merakm_gazebo.xacro" />
+  <xacro:include filename="$(find merakm_description)/urdf/merakm_params.xacro" />
+  <xacro:include filename="$(find merakm_description)/urdf/merakm_macros.xacro" />
+  
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="green">
+    <color rgba="0.1 0.8 0.1 1"/>
+  </material>
+  
+  <material name="blue">
+    <color rgba="0.1 0.1 0.8 1"/>
+  </material>
+  
+  <!-- Begin - Robot description -->
+  
+  <link name="base_footprint" />
+
+  <joint name="base_link__base_footprint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0.0 0.0 0.003" rpy="0 0 0"/>
+  </joint>
+  
+  <xacro:m_link_cylinder name="base_link" origin_xyz="0 0 0" origin_rpy="0 0 0" color="green"
+                         length="${base_len}" radius="${base_rad}" mass="${base_weight}" 
+                         ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+  
+  <xacro:m_link_cylinder name="left_wheel" origin_xyz="0 0 0" origin_rpy="0 0 0" color="black"
+                         length="${wheel_len}" radius="${wheel_rad}" mass="${wheel_weight}" 
+                         ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+    
+  <joint name="base_link__left_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+    <origin xyz="0.0 0.16 0.0" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+                         
+  <xacro:m_link_cylinder name="right_wheel" origin_xyz="0 0 0" origin_rpy="0 0 0" color="black"
+                         length="${wheel_len}" radius="${wheel_rad}" mass="${wheel_weight}" 
+                         ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+
+                         
+  <joint name="base_link__right_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+    <origin xyz="0.0 -0.16 0.0" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+  
+  <joint name="caster_back_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_back_link"/>
+    <origin xyz="-0.13 0 -0.033" rpy="-1.57 0 0"/>
+  </joint>
+
+  <link name="caster_back_link">
+    <visual>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.040"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.040"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  
+  <joint name="caster_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster_front_link"/>
+    <origin xyz="0.13 0 -0.033" rpy="-1.57 0 0"/>
+  </joint>
+
+  <link name="caster_front_link">
+    <visual>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.040"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0.001 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.030 0.009 0.040"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="0 0 0" />
+      <mass value="0.005" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  
+  <!-- End - Robot description -->
+
+  <!-- Begin - Sensor description -->
+  
+  <link name="base_scan">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.02" radius="0.02"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <joint name="base_link__base_scan" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- End - Sensor description -->
+  
+</robot>

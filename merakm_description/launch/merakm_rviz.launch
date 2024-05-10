@@ -1,0 +1,12 @@
+<launch>
+
+  <!-- Robot model -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find merakm_description)/urdf/merakm.xacro'" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Visualization of the robot using Rviz -->
+  <param name="use_gui" value="true"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find merakm_description)/config/merakm_rviz.rviz" required="true" />
+
+</launch>

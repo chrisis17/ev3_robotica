@@ -1,0 +1,19 @@
+<launch>
+  <!-- Arguments -->
+  <arg name="set_base_frame" default="base_footprint"/>
+  <arg name="set_odom_frame" default="odom"/>
+  <arg name="set_map_frame"  default="map"/>
+
+  <!-- Gmapping -->
+  <node pkg="gmapping" type="slam_gmapping" name="merakm_slam_gmapping" output="screen">
+    <param name="base_frame" value="$(arg set_base_frame)"/>
+    <param name="odom_frame" value="$(arg set_odom_frame)"/>
+    <param name="map_frame"  value="$(arg set_map_frame)"/>
+    <rosparam command="load" file="$(find merakm_slam)/config/gmapping_params.yaml" />
+  </node>
+  
+  <!-- Visualization of the robot using Rviz -->
+  <param name="use_gui" value="true"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find merakm_slam)/config/merakm_slam.rviz" required="true" />
+  
+</launch>

@@ -1,0 +1,26 @@
+<launch>
+
+  <node pkg="rosserial_python" type="serial_node.py" name="serial_node0">
+    <param name="port" value="/dev/ttyUSB0"/>
+    <param name="baud" value="56700"/>
+  </node>
+  
+  <node pkg="rosserial_python" type="serial_node.py" name="serial_node1">
+    <param name="port" value="/dev/ttyUSB1"/>
+    <param name="baud" value="56700"/>
+  </node>
+
+  <node pkg="merakm_bringup" type="robot_cmd" name="robot_cmd" />
+  
+  <node pkg="merakm_bringup" type="robot_odom" name="robot_odom" />
+
+  <!-- Robot model -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find merakm_description)/urdf/merakm.xacro'" />
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+  <!-- Visualization of the robot using Rviz -->
+  <param name="use_gui" value="true"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find merakm_description)/config/merakm_rviz.rviz" required="true" />
+
+</launch>
